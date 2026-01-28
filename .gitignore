@@ -224,4 +224,4 @@ wheels/
 logs/
 
 # databse
-migrations/
+# migrations/  # 需要提交迁移文件
