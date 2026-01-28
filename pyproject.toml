@@ -24,6 +24,36 @@ minversion = "7.0"
 addopts = "--cov=app --cov-report=term-missing"
 testpaths = ["tests"]
 
+[tool.mypy]
+ignore_missing_imports = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+check_untyped_defs = false
+warn_unused_ignores = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_configs = true
+plugins = []
+
+[[tool.mypy.overrides]]
+module = [
+    "flask_bcrypt",
+    "flask_cors",
+    "flask_migrate",
+    "flask_jwt_extended",
+    "flask_restx",
+    "prometheus_client",
+    "flask_sqlalchemy",
+    "flask_sqlalchemy.*",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "app.models.*",
+]
+ignore_errors = true
+
 [dependency-groups]
 dev = [
     "pytest>=8.4.2",
