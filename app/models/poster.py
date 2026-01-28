@@ -1,6 +1,7 @@
 from app.extensions.extensions import db
 from datetime import datetime
 
+
 class Poster(db.Model):
     __tablename__ = "posters"
 
@@ -9,7 +10,9 @@ class Poster(db.Model):
     content = db.Column(db.Text, nullable=False)
     status = db.Column(db.String(20), default="draft")
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     user = db.relationship("User", back_populates="posters")

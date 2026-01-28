@@ -14,7 +14,6 @@ cors = CORS()
 jwt = JWTManager()
 
 
-
 def register_extensions(app):
     db.init_app(app)
     bcrypt.init_app(app)

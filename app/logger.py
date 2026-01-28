@@ -1,5 +1,5 @@
 import logging
-from logging.handlers import RotatingFileHandler,TimedRotatingFileHandler
+from logging.handlers import RotatingFileHandler, TimedRotatingFileHandler
 import os
 
 # 日志路径按环境区分
@@ -14,20 +14,24 @@ else:
 # 日志文件存放路径
 os.makedirs(LOG_DIR, exist_ok=True)
 
+
 # ================= 日志格式（包含 request ID）=================
 class RequestIDFilter(logging.Filter):
     """添加 request ID 到日志"""
+
     def filter(self, record):
         try:
             from flask import g, has_request_context
+
             if has_request_context():
-                record.request_id = g.get('request_id', 'N/A')
+                record.request_id = g.get("request_id", "N/A")
             else:
-                record.request_id = 'N/A'
+                record.request_id = "N/A"
         except RuntimeError:
             # 在应用启动阶段，没有请求上下文
-            record.request_id = 'N/A'
+            record.request_id = "N/A"
         return True
+
 
 formatter = logging.Formatter(
     "%(asctime)s [%(levelname)s] [%(name)s] [RequestID: %(request_id)s] [%(filename)s:%(lineno)d] %(message)s"
@@ -45,9 +49,9 @@ app_logger.addFilter(RequestIDFilter())
 
 app_handler = RotatingFileHandler(
     os.path.join(LOG_DIR, "app.log"),
-    maxBytes=10*1024*1024,  # 10MB
+    maxBytes=10 * 1024 * 1024,  # 10MB
     backupCount=5,
-    encoding="utf-8"
+    encoding="utf-8",
 )
 app_handler.setFormatter(formatter)
 app_logger.addHandler(app_handler)
@@ -63,7 +67,7 @@ access_handler = TimedRotatingFileHandler(
     when="midnight",  # 每天新文件
     interval=1,
     backupCount=30,
-    encoding="utf-8"
+    encoding="utf-8",
 )
 access_handler.setFormatter(simple_formatter)
 access_logger.addHandler(access_handler)
@@ -75,9 +79,9 @@ error_logger.addFilter(RequestIDFilter())
 
 error_handler = RotatingFileHandler(
     os.path.join(LOG_DIR, "error.log"),
-    maxBytes=10*1024*1024,
+    maxBytes=10 * 1024 * 1024,
     backupCount=5,
-    encoding="utf-8"
+    encoding="utf-8",
 )
 error_handler.setFormatter(formatter)
 error_logger.addHandler(error_handler)
@@ -90,10 +94,9 @@ error_logger.addHandler(error_handler)
 #     access_logger.addHandler(console_handler)
 #     error_logger.addHandler(console_handler)
 
-import os
 print("当前工作目录:", os.getcwd())
 
-""""
+"""
 DEBUG   开发阶段调试
 INFO    正常业务流程
 WARNING 异常预警，但不影响业务
