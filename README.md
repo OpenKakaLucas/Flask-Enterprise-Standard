@@ -2,8 +2,6 @@
 
 一个现代化的、生产就绪的 Flask 应用框架，包含完整的企业级特性。
 
-📚 **深入学习**：查看 [BLOG.md](BLOG.md) 了解为什么需要代码规范和这个项目如何实践企业级开发。
-
 ## 🎯 核心特性
 
 ### 🔐 安全性
@@ -109,9 +107,18 @@ git clone <repository>
 cd flask_py
 ```
 
-#### 2. 安装依赖
+#### 2. 创建并激活虚拟环境（uv 自动完成）
 ```bash
+# macOS / Linux
+source .venv/bin/activate
+
+# Windows (PowerShell)
+.venv\Scripts\activate
+
+# 环境安装flask
+pip install flask
 # 推荐使用 uv（自动创建虚拟环境，速度快 5 倍）
+
 uv sync
 ```
 
@@ -130,8 +137,10 @@ flask db upgrade
 
 #### 5. 运行应用
 ```bash
-# 开发模式
-python run.py
+# 开发模式 (可二选一)
+
+1. python run.py
+2. flask run
 
 # 生产模式（使用 Gunicorn）
 gunicorn -c gunicorn.conf.py wsgi:app
