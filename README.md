@@ -2,6 +2,8 @@
 
 一个现代化的、生产就绪的 Flask 应用框架，包含完整的企业级特性。
 
+📚 **深入学习**：查看 [BLOG.md](BLOG.md) 了解为什么需要代码规范和这个项目如何实践企业级开发。
+
 ## 🎯 核心特性
 
 ### 🔐 安全性
@@ -96,7 +98,7 @@ flask_py/
 ## 🚀 快速开始
 
 ### 环境要求
-- Python 3.10+
+- Python 3.11+
 - Docker & Docker Compose（可选）
 
 ### 本地开发
@@ -107,32 +109,26 @@ git clone <repository>
 cd flask_py
 ```
 
-#### 2. 创建虚拟环境
+#### 2. 安装依赖
 ```bash
-python -m venv venv
-source venv/bin/activate  # macOS/Linux
-venv\Scripts\activate     # Windows
+# 推荐使用 uv（自动创建虚拟环境，速度快 5 倍）
+uv sync
 ```
 
-#### 3. 安装依赖
-```bash
-pip install -e .
-```
-
-#### 4. 环境配置
+#### 3. 环境配置
 ```bash
 cp .env.example .env
 # 编辑 .env 配置
 ```
 
-#### 5. 初始化数据库
+#### 4. 初始化数据库
 ```bash
 flask db init
 flask db migrate
 flask db upgrade
 ```
 
-#### 6. 运行应用
+#### 5. 运行应用
 ```bash
 # 开发模式
 python run.py
@@ -195,19 +191,20 @@ gunicorn -c gunicorn.conf.py wsgi:app
 
 ### 运行测试
 ```bash
-# 运行所有测试
-pytest -v
+# 使用 uv 运行测试
+uv run pytest -v
 
 # 生成覆盖率报告
-pytest --cov=app --cov-report=html
+uv run pytest --cov=app --cov-report=html
+```
 
 # 使用脚本运行
 bash run_tests.sh
 ```
 
 ### 测试覆盖率目标
-- 当前目标：> 80%
-- 关键路径：> 90%
+- 当前目标：> 60%
+- 关键路径：> 80%
 
 ---
 
@@ -244,17 +241,13 @@ docker-compose up
 # - Grafana:        http://localhost:3000
 ```
 
-#### 方式 2：本地运行（需要 Python 3.10+）
+#### 方式 2：本地运行（需要 Python 3.11+）
 ```bash
-# 1. 创建虚拟环境并激活
-python3 -m venv venv
-source venv/bin/activate
-
-# 2. 同步依赖
+# 1. 安装依赖（自动创建虚拟环境）
 uv sync
 
-# 3. 启动 Flask 开发服务器
-flask run
+# 2. 启动 Flask 开发服务器
+uv run flask run
 
 # 4. 如需监控，手动启动 Prometheus 和 Grafana
 # Prometheus (需单独安装)
