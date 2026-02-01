@@ -9,6 +9,7 @@ class User(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
+    user_id = db.Column(db.BigInteger, unique=True, nullable=True)
     email = db.Column(db.String(120), nullable=True)
     username = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(128))
@@ -30,7 +31,7 @@ class User(db.Model):
     def to_dict(self):
         return OrderedDict(
             [
-                ("id", self.id),
+                ("user_id", self.id),
                 ("username", self.username),
                 ("email", self.email),
                 ("created_at", self.created_at.isoformat()),
