@@ -1,6 +1,7 @@
 import time
 import threading
 
+
 class Snowflake:
     def __init__(self, machine_id: int):
         self.machine_id = machine_id
@@ -22,7 +23,6 @@ class Snowflake:
 
     def _timestamp(self):
         return int(time.time() * 1000)
-
 
     def generate(self):
         with self.lock:

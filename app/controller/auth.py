@@ -57,11 +57,10 @@ def login():
     except Exception as e:
         raise
 
+
 @auth_bp.route("profile/<user_id>", methods=["GET"])
 @validate_json_content_type()
 def profile(user_id):
     """用户信息"""
     result = user_profile(user_id)
     return success(result)
-
-
