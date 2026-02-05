@@ -3,6 +3,7 @@ from datetime import timedelta
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 class Config:
     # 所有环境通用设置
     DEBUG = False
@@ -11,29 +12,30 @@ class Config:
 
     # Cookie 安全通用配置
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = "Lax"
     REMEMBER_COOKIE_HTTPONLY = True
     JWT_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SECURE = False        # 默认开发环境 False
+    SESSION_COOKIE_SECURE = False  # 默认开发环境 False
     REMEMBER_COOKIE_SECURE = False
     JWT_COOKIE_SECURE = False
 
     # =============== 数据库连接池配置 ===============
     # 最大连接数
     SQLALCHEMY_ENGINE_OPTIONS = {
-        'pool_size': 10,                    # 保持的连接数
-        'pool_recycle': 3600,               # 1小时回收一次连接（防止 MySQL timeout）
-        'pool_pre_ping': True,              # 连接前检查是否有效
-        'max_overflow': 20,                 # 超过 pool_size 时最多新建的连接数
-        'connect_args': {
-            'connect_timeout': 10,          # 连接超时时间
-            'check_same_thread': False,     # SQLite 特定配置
-        }
+        "pool_size": 10,  # 保持的连接数
+        "pool_recycle": 3600,  # 1小时回收一次连接（防止 MySQL timeout）
+        "pool_pre_ping": True,  # 连接前检查是否有效
+        "max_overflow": 20,  # 超过 pool_size 时最多新建的连接数
+        "connect_args": {
+            "connect_timeout": 10,  # 连接超时时间
+            "check_same_thread": False,  # SQLite 特定配置
+        },
     }
 
     @staticmethod
     def init_app(app):
         pass
+
 
 class DevConfig(Config):
     DEBUG = True
@@ -47,16 +49,17 @@ class DevConfig(Config):
 
     # 开发环境使用较小的连接池
     SQLALCHEMY_ENGINE_OPTIONS = {
-        'pool_size': 5,
-        'pool_recycle': 3600,
-        'pool_pre_ping': True,
-        'max_overflow': 10,
+        "pool_size": 5,
+        "pool_recycle": 3600,
+        "pool_pre_ping": True,
+        "max_overflow": 10,
     }
+
 
 class ProConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ.get(
-        'DATABASE_URL', "sqlite:///" + os.path.join(basedir, "data-dev.sqlite")
+        "DATABASE_URL", "sqlite:///" + os.path.join(basedir, "data-dev.sqlite")
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -66,13 +69,13 @@ class ProConfig(Config):
 
     # 生产环境使用更大的连接池
     SQLALCHEMY_ENGINE_OPTIONS = {
-        'pool_size': 20,
-        'pool_recycle': 3600,
-        'pool_pre_ping': True,
-        'max_overflow': 40,
-        'connect_args': {
-            'connect_timeout': 10,
-        }
+        "pool_size": 20,
+        "pool_recycle": 3600,
+        "pool_pre_ping": True,
+        "max_overflow": 40,
+        "connect_args": {
+            "connect_timeout": 10,
+        },
     }
 
     @classmethod
@@ -85,7 +88,4 @@ class ProConfig(Config):
             raise RuntimeError("生产环境必须设置 DATABASE_URL！")
 
 
-config_options = dict(
-    development = DevConfig,
-    production = ProConfig
-)
+config_options = dict(development=DevConfig, production=ProConfig)

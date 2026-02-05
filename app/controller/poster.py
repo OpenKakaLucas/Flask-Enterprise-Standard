@@ -8,7 +8,7 @@ from app.schemas.poster import Poster
 from app.utils.validators import validate_request
 
 
-@poster_bp.route('/add', methods=['POST'])
+@poster_bp.route("/add", methods=["POST"])
 @validate_json_content_type()
 @validate_request(Poster)
 @login_required()

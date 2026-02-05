@@ -12,9 +12,9 @@ def create_poster(data):
     if not content:
         raise BusinessError("内容不能为空", code=400)
     if not title:
-        raise BusinessError('标题不能为空',  code=400)
+        raise BusinessError("标题不能为空", code=400)
     if status not in (4, 256):
-        raise BusinessError('状态错误', code=400)
+        raise BusinessError("状态错误", code=400)
     poster = Poster(content=content, title=title, status=status, user_id=user_id)
     try:
         db.session.add(poster)
@@ -22,6 +22,4 @@ def create_poster(data):
     except Exception as e:
         db.session.rollback()
         raise BusinessError("新增失败", code=500)
-    return {
-        "id": poster.id
-    }
+    return {"id": poster.id}

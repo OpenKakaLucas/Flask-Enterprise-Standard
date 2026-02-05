@@ -8,7 +8,10 @@ from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
 from flask_jwt_extended.exceptions import NoAuthorizationError, JWTExtendedException
 from pydantic import ValidationError
 from functools import wraps
-from app.exceptions.base import ValidationError as BusinessValidationError, AuthorizationError
+from app.exceptions.base import (
+    ValidationError as BusinessValidationError,
+    AuthorizationError,
+)
 from app.extensions.extensions import jwt
 
 
@@ -100,5 +103,7 @@ def login_required():
                 raise AuthorizationError("系统处理认证时出错")
 
             return f(*args, **kwargs)
+
         return wrapper
+
     return decorator

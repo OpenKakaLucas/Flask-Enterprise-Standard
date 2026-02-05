@@ -14,5 +14,7 @@ class Poster(db.Model):
         db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
     )
 
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id", name="fk_posters_user_id"), nullable=False)
+    user_id = db.Column(
+        db.Integer, db.ForeignKey("users.id", name="fk_posters_user_id"), nullable=False
+    )
     user = db.relationship("User", back_populates="posters")
