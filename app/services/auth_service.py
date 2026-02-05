@@ -38,7 +38,7 @@ def user_login(email, username, password):
     if not bcrypt.check_password_hash(user.password, password):
         raise BusinessError("密码错误", code=40005)
 
-    token = create_access_token(identity=user.id)
+    token = create_access_token(identity=str(user.id))
     return {**user.to_dict(), "token": token}
 
 

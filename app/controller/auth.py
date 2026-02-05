@@ -23,7 +23,7 @@ def ping():
 
 
 @auth_bp.route("/register", methods=["POST"])
-@limiter.limit("5 per hour")  # 注册：5次/小时
+@limiter.limit("10 per hour")  # 注册：5次/小时
 @validate_json_content_type()
 @validate_request(Register)
 def register():

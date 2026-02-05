@@ -4,10 +4,12 @@
 """
 
 from flask import request, jsonify, g
+from flask_jwt_extended import get_jwt_identity, verify_jwt_in_request
+from flask_jwt_extended.exceptions import NoAuthorizationError, JWTExtendedException
 from pydantic import ValidationError
 from functools import wraps
-from app.exceptions.base import ValidationError as BusinessValidationError
-
+from app.exceptions.base import ValidationError as BusinessValidationError, AuthorizationError
+from app.extensions.extensions import jwt
 
 def validate_request(schema_class):
     """
@@ -70,3 +72,33 @@ def validate_json_content_type():
         return decorated_function
 
     return decorator
+
+
+def login_required():
+    def decorator(f):
+        @wraps(f)
+        def wrapper(*args, **kwargs):
+            try:
+                # verify_jwt_in_request 内部会做以下三件事：
+                # 1. 检查有没有 Authorization Header
+                # 2. 检查是否有 Bearer 前缀
+                # 3. 验证 Token 的合法性和有效期
+                verify_jwt_in_request()
+
+                # 只有验证通过，这一步才不会报错
+                g.user_id = get_jwt_identity()
+
+            except NoAuthorizationError:
+                    # 这里的逻辑等同于 if not token
+                raise AuthorizationError("请先登录，未检测到认证信息")
+            except JWTExtendedException as e:
+                    # 这里捕获 Token 过期、签名错误等所有 JWT 相关问题
+                raise AuthorizationError(f"身份验证无效：{str(e)}")
+            except Exception as e:
+                print(f"DEBUG JWT ERROR: {type(e).__name__} - {str(e)}")
+                raise AuthorizationError("系统处理认证时出错")
+
+            return f(*args, **kwargs)
+        return wrapper
+    return decorator
+

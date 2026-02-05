@@ -225,3 +225,6 @@ logs/
 
 # databse
 # migrations/  # 需要提交迁移文件
+
+#sql
+data-dev.sqlite

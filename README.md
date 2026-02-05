@@ -17,7 +17,7 @@
 - ✅ 性能指标收集
 
 ### 🛠️ 开发体验
-- ✅ Swagger 文档（有需要可自己写）
+- ✅ Swagger 文档（有需要可使用）
 - ✅ Pydantic 数据验证
 - ✅ 统一的错误处理与响应格式
 - ✅ 完整的单元测试框架
@@ -150,6 +150,14 @@ gunicorn -c gunicorn.conf.py wsgi:app
 模拟生产环境应用将在 `http://127.0.0.1:8000` 运行。
 
 ---
+
+
+## 代码格式化
+```bash
+uv run flake8 app tests //检查是否存在代码未格式化
+
+ python -m autopep8 -i -r app tests //格式化代码
+```
 
 ## 🔍 API 文档
 
@@ -376,27 +384,6 @@ LOG_LEVEL=DEBUG|INFO|WARNING|ERROR
 
 ---
 
-## 📈 性能优化建议
-
-1. **缓存策略**
-   - 使用 Redis 缓存热数据
-   - 实现页面级别的 HTTP 缓存
-
-2. **数据库优化**
-   - 添加必要的索引
-   - 定期分析慢查询
-   - 考虑读写分离
-
-3. **API 优化**
-   - 实现分页
-   - 使用字段过滤
-   - 批量操作支持
-
-4. **监控告警**
-   - 配置 Prometheus Alert Rules
-   - 设置关键指标的告警阈值
-
----
 
 ## 🛠️ 开发工具链
 
