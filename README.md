@@ -34,6 +34,13 @@
 
 ## ⚡ 快速启动
 
+### 本地开发启动
+```bash
+# 安装依赖并启动
+uv sync && flask run
+```
+
+
 ### Docker Compose 一键启动（推荐）
 ```bash
 docker-compose up
@@ -43,15 +50,8 @@ docker-compose up
 | 服务 | 地址 | 用途 |
 |------|------|------|
 | Flask API | http://localhost:8000 | REST API 和 Swagger 文档 |
-| Prometheus | http://localhost:9090 | 时间序列数据库和指标查询 |
+| Prometheus | http://localhost:9091 | 时间序列数据库和指标查询 |
 | Grafana | http://localhost:3000 | 可视化仪表板（默认密码：admin） |
-
-### 本地开发启动
-```bash
-# 安装依赖并启动
-uv sync && flask run
-```
-
 ---
 
 ## 🏗️ 项目结构
@@ -154,9 +154,11 @@ gunicorn -c gunicorn.conf.py wsgi:app
 
 ## 代码格式化
 ```bash
-uv run flake8 app tests //检查是否存在代码未格式化
+# 检查是否存在代码未格式化
+uv run flake8 app tests 
 
-pip install black //使用black格式化代码
+# 使用black格式化代码
+pip install black 
 black .
 ```
 
@@ -218,6 +220,7 @@ uv run pytest --cov=app --cov-report=html
 ```
 
 # 使用脚本运行
+```bash
 bash run_tests.sh
 ```
 
