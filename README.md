@@ -156,7 +156,7 @@ gunicorn -c gunicorn.conf.py wsgi:app
 ```bash
 uv run flake8 app tests //检查是否存在代码未格式化
 
- python -m autopep8 -i -r app tests //格式化代码
+python -m autopep8 -i -r app tests //格式化代码
 ```
 
 ## 🔍 API 文档

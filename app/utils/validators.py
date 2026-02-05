@@ -11,6 +11,7 @@ from functools import wraps
 from app.exceptions.base import ValidationError as BusinessValidationError, AuthorizationError
 from app.extensions.extensions import jwt
 
+
 def validate_request(schema_class):
     """
     装饰器：自动验证请求数据
@@ -89,10 +90,10 @@ def login_required():
                 g.user_id = get_jwt_identity()
 
             except NoAuthorizationError:
-                    # 这里的逻辑等同于 if not token
+                # 这里的逻辑等同于 if not token
                 raise AuthorizationError("请先登录，未检测到认证信息")
             except JWTExtendedException as e:
-                    # 这里捕获 Token 过期、签名错误等所有 JWT 相关问题
+                # 这里捕获 Token 过期、签名错误等所有 JWT 相关问题
                 raise AuthorizationError(f"身份验证无效：{str(e)}")
             except Exception as e:
                 print(f"DEBUG JWT ERROR: {type(e).__name__} - {str(e)}")
@@ -101,4 +102,3 @@ def login_required():
             return f(*args, **kwargs)
         return wrapper
     return decorator
-

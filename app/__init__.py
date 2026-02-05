@@ -31,7 +31,7 @@ def create_app():
     # 注册安全响应头
     setup_security_headers(app)
 
-    from app.controller import auth_bp, health_bp,poster_bp
+    from app.controller import auth_bp, health_bp, poster_bp
 
     # from app.extensions.swagger import api_bp  //swagger文档
     app.register_blueprint(auth_bp, url_prefix="/auth")
