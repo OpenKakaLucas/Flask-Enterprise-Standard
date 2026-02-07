@@ -18,3 +18,11 @@ class Poster(db.Model):
         db.Integer, db.ForeignKey("users.id", name="fk_posters_user_id"), nullable=False
     )
     user = db.relationship("User", back_populates="posters")
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "status": self.status,
+            "created_at": self.created_at.isoformat() if self.created_at else None
+        }

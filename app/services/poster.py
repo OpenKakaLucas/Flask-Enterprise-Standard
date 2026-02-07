@@ -2,6 +2,7 @@ from app.exceptions.base import BusinessError
 from app.models import Poster
 from app.extensions.extensions import db
 from flask import g
+from app.utils.pagination import pagination
 
 
 def create_poster(data):
@@ -23,3 +24,32 @@ def create_poster(data):
         db.session.rollback()
         raise BusinessError("新增失败", code=500)
     return {"id": poster.id}
+
+
+def search_poster(page: int = 1, page_size: int = 10):
+    """
+    分页查询 Poster
+    """
+
+    # 1️⃣ 参数兜底（防止恶意请求）
+    page = max(page, 1)
+    page_size = min(max(page_size, 1), 100)
+
+    try:
+        pagination = Poster.query.paginate(
+            page=page,
+            per_page=page_size,
+            error_out=False
+        )
+
+    except Exception as e:
+        raise BusinessError("查询失败", code=500)
+    items = [p.to_dict() for p in pagination.items]
+
+    # 3️⃣ 返回“干净”的业务数据
+    return {
+        "list": items,
+        "page": page,
+        "page_size": page_size,
+        "total": pagination.total
+    }

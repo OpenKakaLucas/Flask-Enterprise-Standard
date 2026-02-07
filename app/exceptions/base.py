@@ -60,3 +60,10 @@ class InternalServerError(BusinessError):
 
     def __init__(self, message="服务器内部错误", code=50001):
         super().__init__(message, code=code, http_code=500)
+
+
+class QueryError(BusinessError):
+    """query参数错误"""
+
+    def __init__ (self, message="query参数有误", code=40003):
+        super().__init__(message,code,http_code=400)

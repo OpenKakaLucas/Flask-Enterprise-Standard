@@ -1,14 +1,29 @@
 # Flask-Py 企业级 API 框架
 
-一个现代化的、生产就绪的 Flask 应用框架，包含完整的企业级特性。
+一个真正可落地的 Flask 企业级 API 框架
+内置认证、安全、监控、日志、测试与容器化方案，开箱即用，适合中大型后端服务。
+
+## 为什么要用 Flask-Py？
+市面上的 Flask 项目大多停留在：
+- Demo 级
+- 教程级
+- “能跑但不能上生产”
+
+Flask-Py 的目标只有一个：
+👉 让 Flask 项目从第一天就具备生产级能力
+你不需要再自己拼：
+- JWT / 日志 / Prometheus
+- 错误处理 / 安全头 / 速率限制
+- Docker / 多环境 / 健康检查
+这些已经帮你全部做好。
 
 ## 🎯 核心特性
 
 ### 🔐 安全性
-- ✅ JWT 身份认证
+- ✅ JWT 身份认证（登录 / 注册）
 - ✅ 9 个安全响应头（防 XSS、CSRF、点击劫持等）
 - ✅ API 速率限制（防止滥用）
-- ✅ 数据验证与清理
+- ✅ 请求参数校验与清洗（Pydantic）
 
 ### 📊 可观测性
 - ✅ 结构化日志（JSON 格式）   
@@ -93,7 +108,7 @@ flask_py/
 
 ---
 
-## 🚀 快速开始
+## 🚀  从0到1开始启动项目
 
 ### 环境要求
 - Python 3.11+
@@ -370,7 +385,7 @@ LOG_LEVEL=DEBUG|INFO|WARNING|ERROR
 ### 数据库配置
 配置文件在 `config.py` 中定义：
 - **开发环境**：SQLite（5 个连接池）
-- **生产环境**：PostgreSQL（20 个连接池）
+- **生产环境**：SQLite（20 个连接池）
 
 ---
 
@@ -420,28 +435,6 @@ pip install -e .
 - [SQLAlchemy 文档](https://docs.sqlalchemy.org/)
 - [Pydantic 文档](https://docs.pydantic.dev/)
 - [Prometheus 文档](https://prometheus.io/docs/)
-
----
-
-## 🤝 贡献指南
-
-1. Fork 项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
-
----
-
-## 📝 更新日志
-
-### v1.0.0 (2026-01-26)
-- ✨ 初始版本发布
-- 🔐 完整的身份认证系统
-- 📊 Prometheus 监控
-- 🧪 单元测试框架
-- 📖 API 文档
-- 🔒 安全响应头
 
 ---
 
